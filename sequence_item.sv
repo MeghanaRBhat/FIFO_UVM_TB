@@ -18,7 +18,6 @@ bit o_empty;
 `uvm_field_int(o_empty, UVM_ALL_ON)
 `uvm_field_int(o_alm_full, UVM_ALL_ON)
 `uvm_field_int(o_alm_empty, UVM_ALL_ON)
-
 `uvm_object_utils_end
 
  function new(string name = "sequence_item");
