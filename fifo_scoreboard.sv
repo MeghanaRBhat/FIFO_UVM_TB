@@ -4,7 +4,7 @@ class fifo_scoreboard extends uvm_scoreboard;
 
 function new(string name = "fifo_scoreboard", uvm_component parent);
   super.new(name, parent);
-  item_export = new("item", this);
+  item_export = new("item_export", this);
 endfunction
 
 virtual function void build_phase(uvm_phase phase);
@@ -20,7 +20,7 @@ function void write(input sequence_item item_got);
    `uvm_info("write Data", $sformatf("i_wren: %0b i_rden: %0b      i_wrdata : %0h o_full: %0b",item_got.i_wren, item_got.i_rden,item_got.i_wrdata , item_got.o_full), UVM_LOW);
     end
  else if (item_got.i_rden == 'b1)begin
-      if(queue.size() >= 'd1)begin
+      if(queue.size() >= 1)begin
         data = queue.pop_front();
         `uvm_info("Read Data", $sformatf("data: %0h o_rddata: %0h o_empty: %0b",data, item_got.o_rddata, item_got.o_empty), UVM_LOW);
         if(data == item_got.o_rddata)begin
