@@ -34,10 +34,10 @@ seq_item_port.item_done();
 end
 endtask
 
-virtual task write_seq(input [127:0] DATA_W);
+  virtual task write_seq(input [127:0]i_wrdata);
 @(posedge vif.d_mp.clk)
 vif.d_mp.d_cb.i_wren <= 1;
-vif.d_mp.d_cb.DATA_W <= DATA_W;
+vif.d_mp.d_cb.i_wrdata <= i_wrdata;
 @(posedge vif.d_mp.clk)
 vif.d_mp.d_cb.i_wren <= 0;
 endtask
@@ -49,3 +49,4 @@ vif.d_mp.d_cb.i_rden <= 1;
     vif.d_mp.d_cb.i_rden <= 0;
   endtask
 endclass
+
