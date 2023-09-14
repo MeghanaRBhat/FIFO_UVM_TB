@@ -1,17 +1,16 @@
 import uvm_pkg::*;
-  `include "uvm_macros.svh"
-   `include "fifo_interface.sv"
+`include "uvm_macros.svh"
+`include "fifo_interface.sv"
 `include "sequence_item.sv"
+`include "my_sequence.sv"
 `include "sequencer.sv"
-`include "fifo_monitor.sv"
 `include "fifo_driver.sv"
+`include "fifo_monitor.sv"
 `include "fifo_agent.sv"
-//`include "my_sequence.sv"
-`include "fifo_test.sv"
 `include "fifo_scoreboard.sv"
-// `include "fifo_environment.sv"
+`include "fifo_environment.sv"
+`include "fifo_test.sv"
 
- 
   module fifo_top;
     bit clk;
     bit reset;
