@@ -1,6 +1,3 @@
-//`include "fifo_agent.sv"
-//`include "fifo_scoreboard.sv"
-
 class fifo_environment extends uvm_env;
 fifo_agent agt;
 fifo_scoreboard score;
@@ -18,7 +15,7 @@ virtual function void build_phase(uvm_phase phase);
 endfunction
 
 virtual function void connect_phase(uvm_phase phase);
-  agt.mon.item.connect(score.item_export);
+  agt.mon.item_got_port.connect(score.item_export);
  endfunction
 
 endclass
