@@ -23,7 +23,7 @@ virtual task run_phase(uvm_phase phase);
       @(posedge vif.m_mp.clk)
       if(vif.m_mp.m_cb.i_wren == 1)begin
 
-        item_got. DATA_W   = vif.m_mp.m_cb.DATA_W;
+        item_got.i_wrdata   = vif.m_mp.m_cb.i_wrdata;
         item_got.i_wren = 'b1;
         item_got.i_rden= 'b0;
         item_got.o_full = vif.m_mp.m_cb.o_full;
