@@ -28,25 +28,24 @@ forever begin
 seq_item_port.get_next_item(item_port);
 if(item_port.i_wren==1)
 write_seq(item_port.i_wrdata);
-else if(item_port.i_rden == 1)
+if(item_port.i_rden == 1)
 read();
 seq_item_port.item_done();
 end
 endtask
 
   virtual task write_seq(input [127:0]i_wrdata);
-@(posedge vif.d_mp.clk)
+    @(posedge vif.d_mp.d_cb)
 vif.d_mp.d_cb.i_wren <= 1;
 vif.d_mp.d_cb.i_wrdata <= i_wrdata;
-@(posedge vif.d_mp.clk)
+    @(posedge vif.d_mp.d_cb)
 vif.d_mp.d_cb.i_wren <= 0;
 endtask
 
   virtual task read();
-@(posedge vif.d_mp.clk)
+    @(posedge vif.d_mp.d_cb)
 vif.d_mp.d_cb.i_rden <= 1;
- @(posedge vif.d_mp.clk)
+    @(posedge vif.d_mp.d_cb)
     vif.d_mp.d_cb.i_rden <= 0;
   endtask
 endclass
-
