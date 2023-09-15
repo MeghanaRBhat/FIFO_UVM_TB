@@ -20,18 +20,18 @@ if(!uvm_config_db#(virtual fifo_interface)::get(this, "", "vif", vif))
 
 virtual task run_phase(uvm_phase phase);
     forever begin
-      @(posedge vif.m_mp.clk)
-      if(vif.m_mp.m_cb.i_wren == 1)begin
-
+      @(posedge vif.m_mp.m_cb)
+     if(vif.m_mp.m_cb.i_wren == 1)begin
         item_got.i_wrdata   = vif.m_mp.m_cb.i_wrdata;
         item_got.i_wren = 'b1;
         item_got.i_rden= 'b0;
         item_got.o_full = vif.m_mp.m_cb.o_full;
         item_got_port.write(item_got);
       end
- else if(vif.m_mp.m_cb.i_rden == 1)begin
-        @(posedge vif.m_mp.clk)
-
+  
+    
+    if(vif.m_mp.m_cb.i_rden == 1)begin
+      // @(posedge vif.m_mp.m_cb) 
         item_got.o_rddata = vif.m_mp.m_cb.o_rddata;
         item_got.i_rden = 'b1;
         item_got.i_wren = 'b0;
