@@ -4,7 +4,7 @@ module SYN_FIFO(
   input wire i_wren,        // Write enable
   input wire i_rden,         // Read enable
   input wire [127:0] i_wrdata, // Input data
-  output wire [127:0] o_rddata, // Output data
+  output reg [127:0] o_rddata, // Output data
   output wire o_full,           // Full signal
   output wire o_alm_full,    // Almost Full signal (4 spaces left)
   output wire o_empty,          // Empty signal
@@ -14,7 +14,7 @@ module SYN_FIFO(
  
 
   // FIFO parameters
-  parameter DEPTH = 1024;
+  parameter DEPTH = 10;
   parameter WIDTH = 128;
 
  
@@ -32,13 +32,13 @@ module SYN_FIFO(
   // Full and Empty signals
   assign o_full = (fifo_count >= (DEPTH - 1));
   assign o_alm_full = (almost_full_condition && !o_full);
-  assign o_empty = (fifo_count == 0);
+  assign o_empty = (fifo_count == 1);
   assign o_alm_empty = (almost_empty_condition && !o_empty);
 
  
 
-  always @(posedge clk or posedge reset) begin
-    if (reset) begin
+  always @(posedge clk ) begin
+    if (!reset) begin
       write_ptr <= 0;
       read_ptr <= 0;
     end else if (i_wren) begin
@@ -48,7 +48,7 @@ module SYN_FIFO(
 
  
 
-    if (reset) begin
+    if (!reset) begin
       read_ptr <= 0;
     end else if (i_rden) begin
       read_ptr <= read_ptr + 1;
@@ -58,8 +58,11 @@ module SYN_FIFO(
  
 
   // Assign data_out outside of procedural blocks
-  assign o_rddata = (i_rden) ? fifo[read_ptr] : 128'b0;
-
- 
+// assign o_rddata = (i_rden) ? fifo[read_ptr] : 128'b0;
+  always@(*) begin
+    //if(!reset)
+  if(i_rden)
+    o_rddata=fifo[read_ptr];
+  end
 
 endmodule
