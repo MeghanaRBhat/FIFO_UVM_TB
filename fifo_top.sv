@@ -30,7 +30,7 @@ import uvm_pkg::*;
  
   my_fifo dut(.clk(vif.clk),
                  .rstn(vif.reset),
-                 . i_wrdata (vif. i_wrdata ),
+                 .i_wrdata (vif. i_wrdata ),
                  .i_wren(vif.i_wren),
                  .i_rden(vif.i_rden),
                  .o_full(vif.o_full),
