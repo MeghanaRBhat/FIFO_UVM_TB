@@ -1,7 +1,7 @@
 class sequence_item extends uvm_sequence_item;
-rand bit i_wren;
+rand logic i_wren;
 rand bit [127: 0] i_wrdata;
-rand bit  i_rden ;
+rand logic  i_rden ;
 bit o_alm_full;
 bit o_full;
 bit [127: 0] o_rddata;

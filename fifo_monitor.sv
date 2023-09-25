@@ -21,7 +21,8 @@ if(!uvm_config_db#(virtual fifo_interface)::get(this, "", "vif", vif))
 virtual task run_phase(uvm_phase phase);
     forever begin
       @(posedge vif.m_mp.m_cb)
-     if(vif.m_mp.m_cb.i_wren == 1)begin
+      if(vif.m_mp.m_cb.i_wren == 1)begin
+
         item_got.i_wrdata   = vif.m_mp.m_cb.i_wrdata;
         item_got.i_wren = 'b1;
         item_got.i_rden= 'b0;
@@ -41,3 +42,4 @@ virtual task run_phase(uvm_phase phase);
     end
 endtask
 endclass
+

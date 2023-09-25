@@ -13,15 +13,15 @@ endfunction
 virtual task body();
 
 //ideal
-repeat(10) begin
+ repeat(10) begin
 item= sequence_item::type_id::create("item");
 start_item(item);
   assert(item.randomize() with {i_wren==0;i_rden==0;});
-finish_item(item);
-end
+ finish_item(item);
+ end
 
 //write
-repeat(10) begin
+repeat(1024) begin
 item= sequence_item::type_id::create("item");
 start_item(item);
   assert(item.randomize() with {i_wren==1;i_rden==0;});
@@ -29,31 +29,31 @@ finish_item(item);
 end
 
 //Read
-repeat(10) begin
+  repeat(1024) begin
 item=sequence_item::type_id::create("item");
 start_item(item);
-  assert(item.randomize() with {i_wren==0;i_rden==1;});
+assert(item.randomize() with {i_wren==0;i_rden==1;});
 finish_item(item);
 end
 
 //alternate write read
-  repeat(10) begin
+repeat(1024) begin
 item=sequence_item::type_id::create("item");
 start_item(item);
-repeat(10) begin
-  assert(item.randomize() with {i_wren==0;i_rden==1;});
+// repeat(10) begin
   assert(item.randomize() with {i_wren==1;i_rden==0;});
-
+  assert(item.randomize() with {i_wren==0;i_rden==1;});
 finish_item(item);
-  end
-  end
+   //end
+ end
 
 //simultaneous write and read
-repeat(10) begin
+ repeat(1024) begin
 item=sequence_item::type_id::create("item");
 start_item(item);
-  assert(item.randomize() with {i_wren==1;i_rden==1;});
-finish_item(item);
-end
+ assert(item.randomize() with {i_wren==1;i_rden==1;});
+ finish_item(item);
+ end
 endtask
 endclass
+

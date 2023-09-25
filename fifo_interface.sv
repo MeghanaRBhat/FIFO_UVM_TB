@@ -32,3 +32,4 @@ endclocking
   modport d_mp (input clk,reset, clocking d_cb);
   modport m_mp (input clk,reset, clocking m_cb);
 endinterface
+

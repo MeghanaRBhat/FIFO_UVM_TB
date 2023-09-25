@@ -7,9 +7,11 @@ import uvm_pkg::*;
 `include "fifo_driver.sv"
 `include "fifo_monitor.sv"
 `include "fifo_agent.sv"
+`include "fifo_coverage.sv"
 `include "fifo_scoreboard.sv"
 `include "fifo_environment.sv"
 `include "fifo_test.sv"
+`include "my_fifo.sv"
 
   module fifo_top;
     bit clk;
@@ -19,15 +21,15 @@ import uvm_pkg::*;
  
     initial begin
       clk = 1;
-      reset= 1;
-      #5;
       reset= 0;
+      #5;
+     reset= 1;
     end
  
-  fifo_interface vif(clk, reset);
+    fifo_interface vif(clk, reset);
  
-   SYN_FIFO dut(.clk(vif.clk),
-                 .reset(vif.reset),
+  my_fifo dut(.clk(vif.clk),
+                 .rstn(vif.reset),
                  . i_wrdata (vif. i_wrdata ),
                  .i_wren(vif.i_wren),
                  .i_rden(vif.i_rden),
